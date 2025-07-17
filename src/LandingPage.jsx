@@ -9,7 +9,10 @@ function Navbar() {
   const [open, setOpen] = useState(false);
   return (
     <nav className="navbar">
-      <div className="navbar-logo">Tugas Eduwork</div>
+      <div className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <img src={profile} alt="Logo" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2d8cff' }} />
+        <span>Tugas Eduwork</span>
+      </div>
       <button className="navbar-hamburger" onClick={() => setOpen(o => !o)} aria-label="Menu">
         <span className={open ? 'bar open' : 'bar'}></span>
         <span className={open ? 'bar open' : 'bar'}></span>
