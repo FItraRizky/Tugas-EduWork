@@ -2,20 +2,32 @@ import React, { useState, useEffect } from 'react';
 import './LandingPage.css';
 import profile from '../profile.jpg';
 
+// Import SVG icons
+import javaIcon from './assets/icons/java.svg';
+import javascriptIcon from './assets/icons/javascript.svg';
+import pythonIcon from './assets/icons/python.svg';
+import phpIcon from './assets/icons/php.svg';
+import htmlIcon from './assets/icons/html.svg';
+import cssIcon from './assets/icons/css.svg';
+import cIcon from './assets/icons/c.svg';
+import csharpIcon from './assets/icons/csharp.svg';
+import mysqlIcon from './assets/icons/mysql.svg';
+import dockerIcon from './assets/icons/docker.svg';
+
 const FOTO_USER = profile;
-const RUNNING_TEXT = 'Selamat datang di Tugas Eduwork! Platform tugas, belajar, dan pengembangan skill digital terbaik di Indonesia 🚀';
+const RUNNING_TEXT = 'Selamat datang di Tugas Eduwork! Platform tugas, belajar, dan pengembangan skill digital terbaik di Indonesia 🚀 | Selamat datang di Tugas Eduwork! Platform tugas, belajar, dan pengembangan skill digital terbaik di Indonesia 🚀 | ';
 
 const LANGUAGES = [
-  { name: 'Java', label: '☕' },
-  { name: 'JavaScript', label: 'JS' },
-  { name: 'Python', label: '🐍' },
-  { name: 'PHP', label: 'PHP' },
-  { name: 'HTML', label: '<>' },
-  { name: 'CSS', label: '{ }' },
-  { name: 'C', label: 'C' },
-  { name: 'C#', label: 'C#' },
-  { name: 'MySQL', label: 'DB' },
-  { name: 'Docker', label: '🐳' },
+  { name: 'Java', icon: javaIcon },
+  { name: 'JavaScript', icon: javascriptIcon },
+  { name: 'Python', icon: pythonIcon },
+  { name: 'PHP', icon: phpIcon },
+  { name: 'HTML', icon: htmlIcon },
+  { name: 'CSS', icon: cssIcon },
+  { name: 'C', icon: cIcon },
+  { name: 'C#', icon: csharpIcon },
+  { name: 'MySQL', icon: mysqlIcon },
+  { name: 'Docker', icon: dockerIcon },
 ];
 
 function Language3DBalls() {
@@ -25,7 +37,7 @@ function Language3DBalls() {
       <div className="languages-3d-container">
         {LANGUAGES.map((lang, i) => (
           <div className="lang-3d-ball" key={lang.name} style={{animationDelay: `${i * 0.15}s`}}>
-            <span>{lang.label}</span>
+            <img src={lang.icon} alt={lang.name} style={{width: '100%', height: '100%', objectFit: 'contain'}} />
             <div className="lang-3d-label">{lang.name}</div>
           </div>
         ))}
@@ -36,23 +48,46 @@ function Language3DBalls() {
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [open]);
+  
   return (
-    <nav className="navbar">
-      <div className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <img src={profile} alt="Logo" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2d8cff' }} />
-        <span>Tugas Eduwork</span>
-      </div>
-      <button className="navbar-hamburger" onClick={() => setOpen(o => !o)} aria-label="Menu">
-        <span className={open ? 'bar open' : 'bar'}></span>
-        <span className={open ? 'bar open' : 'bar'}></span>
-        <span className={open ? 'bar open' : 'bar'}></span>
-      </button>
-      <ul className={open ? 'navbar-menu open' : 'navbar-menu'}>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#fitur">Fitur</a></li>
-        <li><a href="#kontak">Kontak</a></li>
-      </ul>
-    </nav>
+    <>
+      <nav className="navbar">
+        <div className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src={profile} alt="Logo" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #2d8cff' }} />
+          <span>Tugas Eduwork</span>
+        </div>
+        <button 
+          className="navbar-hamburger" 
+          onClick={() => {
+            setOpen(o => !o);
+          }} 
+          aria-label="Menu"
+          aria-expanded={open}
+        >
+          <span className={open ? 'bar open' : 'bar'}></span>
+          <span className={open ? 'bar open' : 'bar'}></span>
+          <span className={open ? 'bar open' : 'bar'}></span>
+        </button>
+        <ul className={open ? 'navbar-menu open' : 'navbar-menu'}>
+          <li><a href="#home" onClick={() => setOpen(false)}>Home</a></li>
+          <li><a href="#fitur" onClick={() => setOpen(false)}>Fitur</a></li>
+          <li><a href="#kontak" onClick={() => setOpen(false)}>Kontak</a></li>
+        </ul>
+      </nav>
+      <div className="menu-overlay" onClick={() => setOpen(false)}></div>
+    </>
   );
 }
 
@@ -116,7 +151,7 @@ export default function LandingPage() {
           <h1 className="judul-animasi">Tugas Eduwork</h1>
           <div className="running-text-modern">
             <span className="running-text-content">
-              {RUNNING_TEXT} &nbsp; &nbsp; {RUNNING_TEXT}
+              {RUNNING_TEXT}
             </span>
           </div>
         </div>
@@ -144,4 +179,4 @@ export default function LandingPage() {
       </footer>
     </div>
   );
-} 
+}
